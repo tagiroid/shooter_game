@@ -2,6 +2,7 @@ import sys
 import pygame
 from settings import Settings
 from ship import Ship
+from bullets import Bullet
 
 
 class MemeInvasion:
@@ -14,11 +15,13 @@ class MemeInvasion:
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption("Meme invasion")
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
 
     def run_game(self):  # main game cycle
         while True:
             self._check_events()
             self.ship.update()
+            self._update_bullets()
             self._update_screen()
 
     def _check_events(self):
@@ -35,6 +38,8 @@ class MemeInvasion:
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)  # background colour
         self.ship.blitme()
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         pygame.display.flip()  # last screen capturing
 
     def _check_keydown_events(self, event):
@@ -45,12 +50,27 @@ class MemeInvasion:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:  # quitbutton
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
+
     def _check_keyup_events(self, event):
         # ship movements release button
         if event.key == pygame.K_RIGHT:  # right
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:  # left
             self.ship.moving_left = False
+
+    def _fire_bullet(self):
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+
+    def _update_bullets(self):
+        self.bullets.update()
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+
 
 if __name__ == '__main__':
     ai = MemeInvasion()
