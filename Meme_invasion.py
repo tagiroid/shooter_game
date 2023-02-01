@@ -55,3 +55,4 @@ class MemeInvasion:
 if __name__ == '__main__':
     ai = MemeInvasion()
     ai.run_game()
+
