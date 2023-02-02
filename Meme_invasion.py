@@ -3,6 +3,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from bullets import Bullet
+from alien import Alien
 
 
 class MemeInvasion:
@@ -16,6 +17,9 @@ class MemeInvasion:
         pygame.display.set_caption("Meme invasion")
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
+
+        self._create_fleet()
 
     def run_game(self):  # main game cycle
         while True:
@@ -40,6 +44,7 @@ class MemeInvasion:
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+        self.aliens.draw(self.screen)
         pygame.display.flip()  # last screen capturing
 
     def _check_keydown_events(self, event):
@@ -70,6 +75,10 @@ class MemeInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
+
+    def _create_fleet(self):
+        alien = Alien(self)
+        self.aliens.add(alien)
 
 
 if __name__ == '__main__':
