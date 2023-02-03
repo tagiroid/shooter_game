@@ -1,11 +1,11 @@
 import pygame
 
 
-class Ship():
+class Ship:
 
     def __init__(self, ai_game):
         self.screen = ai_game.screen  # ship initialization
-        self.screen_rect = self.screen.get_rect() # ship starting position
+        self.screen_rect = self.screen.get_rect()  # ship starting position
         self.settings = ai_game.settings
 
         # getting ship and drawing rectangle
@@ -14,7 +14,7 @@ class Ship():
         self.rect.midbottom = self.screen_rect.midbottom  # each new ship is settled at the mid-bottom
 
         self.x = float(self.rect.x)
-        self.moving_right = False # default state of ship movements to the right
+        self.moving_right = False  # default state of ship movements to the right
         self.moving_left = False  # default state of ship movements to the left
 
     def update(self):
