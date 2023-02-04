@@ -72,9 +72,10 @@ class MemeInvasion:
 
     def _update_bullets(self):
         self.bullets.update()
-        for bullet in self.bullets.copy():
+        for bullet in self.bullets.copy():  # removing bullets after top position
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
+        self._check_collisions()
 
     def _update_aliens(self):
         self._check_fleet_edges()
@@ -112,6 +113,13 @@ class MemeInvasion:
         for alien in self.aliens.sprites():
             alien.rect.y += self.settings.fleet_drop_speed
         self.settings.fleet_direction *= -1
+
+    def _check_collisions(self):
+        # remove objects after collisions, bullet hits
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        if not self.aliens:
+            self.bullets.empty()
+            self._create_fleet()
 
 
 if __name__ == '__main__':
