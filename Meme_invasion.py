@@ -171,6 +171,7 @@ class MemeInvasion:
                 self._ship_hit()
                 break
 
+
 if __name__ == '__main__':
     ai = MemeInvasion()
     ai.run_game()
