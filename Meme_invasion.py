@@ -61,6 +61,7 @@ class MemeInvasion:
             self.stats.game_active = True
             self.sb.prep_score()
             self.sb.prep_level()
+            self.sb.prep_ships()
             self.aliens.empty()
             self.bullets.empty()
 
@@ -169,6 +170,7 @@ class MemeInvasion:
     def _ship_hit(self):
         if self.stats.ships_left > 0:
             self.stats.ships_left -= 1  # ship is dead
+            self.sb.prep_ships()
             self.aliens.empty()
             self.ship.center_ship()
 
