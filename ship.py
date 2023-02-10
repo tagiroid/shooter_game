@@ -3,7 +3,6 @@ from pygame.sprite import Sprite
 
 
 class Ship(Sprite):
-
     def __init__(self, ai_game):
         super().__init__()
         self.screen = ai_game.screen  # ship initialization
@@ -11,6 +10,8 @@ class Ship(Sprite):
         self.settings = ai_game.settings
 
         # getting ship and drawing rectangle
+        # funny version
+        # self.image = pygame.image.load('images/navalny.png')
         self.image = pygame.image.load('images/ship.png')
         self.rect = self.image.get_rect()
         self.rect.midbottom = self.screen_rect.midbottom  # each new ship is settled at the mid-bottom

@@ -7,6 +7,8 @@ class Alien(Sprite):
         super().__init__()  # initializing meme and start position
         self.screen = ai_game.screen
         self.settings = ai_game.settings
+        # funny version
+        # self.image = pygame.image.load('images/putin.png')
         self.image = pygame.image.load('images/alien.png')
         self.rect = self.image.get_rect()
 
